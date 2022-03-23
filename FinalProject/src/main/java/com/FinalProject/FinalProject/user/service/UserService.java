@@ -7,6 +7,7 @@ import com.FinalProject.FinalProject.user.entity.User;
 import com.FinalProject.FinalProject.user.dto.UserAuthDto;
 import com.FinalProject.FinalProject.user.service.entityService.UserEntityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserService {
     private final UserEntityService userEntityService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public UserDto save(UserSaveRequestDto userSaveRequestDto) {
