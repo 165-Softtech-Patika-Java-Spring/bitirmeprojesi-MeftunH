@@ -25,6 +25,9 @@ public class User extends BaseEntity {
     @Column(name = "SURNAME", length = 100, nullable = false)
     private String surname;
 
+    @Column(name = "USER_NAME", length = 100, nullable = false)
+    private String userName;
+
     @Column(name = "PASSWORD", nullable = false)
     @Min(value = 3, message = "Password must be at least 3 characters long")
     private String password;
