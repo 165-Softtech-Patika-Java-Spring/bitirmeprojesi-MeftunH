@@ -3,6 +3,7 @@ package com.FinalProject.FinalProject.user.controller;
 import com.FinalProject.FinalProject.general.response.RestResponse;
 import com.FinalProject.FinalProject.user.dto.UserDto;
 import com.FinalProject.FinalProject.user.dto.UserSaveRequestDto;
+import com.FinalProject.FinalProject.user.dto.UserUpdateRequestDto;
 import com.FinalProject.FinalProject.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -49,5 +52,13 @@ public class UserController {
         userService.delete(id);
 
         return ResponseEntity.ok(RestResponse.empty());
+    }
+    @Operation(tags = "User Controller")
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable(value = "id") Long id, @RequestBody UserUpdateRequestDto userUpdateRequestDto){
+
+        UserDto userDto = userService.update(id,userUpdateRequestDto);
+
+        return ResponseEntity.ok(RestResponse.success(userDto));
     }
 }

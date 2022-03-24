@@ -1,10 +1,13 @@
 package com.FinalProject.FinalProject.user.service;
 
+import com.FinalProject.FinalProject.general.exceptions.ItemNotFoundException;
 import com.FinalProject.FinalProject.user.converter.UserMapper;
 import com.FinalProject.FinalProject.user.dto.UserDto;
 import com.FinalProject.FinalProject.user.dto.UserSaveRequestDto;
+import com.FinalProject.FinalProject.user.dto.UserUpdateRequestDto;
 import com.FinalProject.FinalProject.user.entity.User;
 import com.FinalProject.FinalProject.user.dto.UserAuthDto;
+import com.FinalProject.FinalProject.user.enums.UserNotFoundErrorMessage;
 import com.FinalProject.FinalProject.user.service.entityService.UserEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,12 @@ public class UserService {
         return userDto;
     }
 
-    public UserDto getUserByUsername(String username) {
-        User user = userEntityService.getUserByUsername(username);
-        UserDto userDto = UserMapper.INSTANCE.convertToUserDto(user);
-        return userDto;
+    private void controlIsUserExist(Long id) {
+
+        boolean isExist = userEntityService.existsById(id);
+        if (!isExist) {
+            throw new ItemNotFoundException(UserNotFoundErrorMessage.UserNotFoundErrorMessage);
+        }
     }
 
     public boolean existsUserByUserName(String username) {
@@ -50,16 +55,20 @@ public class UserService {
         return true;
     }
 
-    public UserAuthDto getAuthenticatedUser(String username) {
-        User user = userEntityService.getUserByUsername(username);
-        UserAuthDto userDto = UserMapper.INSTANCE.convertToUserAuthDto(user);
-        return userDto;
-    }
-
     public void delete(Long id) {
         User user = userEntityService.getByIdWithControl(id);
 
         userEntityService.delete(user);
+    }
 
+    public UserDto update(Long id,UserUpdateRequestDto userUpdateRequestDto) {
+        controlIsUserExist(id);
+
+        User user = UserMapper.INSTANCE.convertToUser(userUpdateRequestDto);
+        user = userEntityService.save(user);
+
+        UserDto userDto = UserMapper.INSTANCE.convertToUserDto(user);
+
+        return userDto;
     }
 }
