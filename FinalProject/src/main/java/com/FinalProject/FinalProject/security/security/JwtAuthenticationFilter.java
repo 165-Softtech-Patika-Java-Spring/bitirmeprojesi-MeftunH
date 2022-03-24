@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author Bahadır Memiş
- * @since 1.0.0
- */
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired

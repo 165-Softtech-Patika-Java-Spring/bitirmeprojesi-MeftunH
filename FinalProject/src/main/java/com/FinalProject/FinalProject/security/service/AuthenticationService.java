@@ -17,10 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-/**
- * @author Bahadır Memiş
- * @since 1.0.0
- */
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -39,7 +36,7 @@ public class AuthenticationService {
 
     public String login(SecLoginRequestDto secLoginRequestDto) {
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(secLoginRequestDto.getId().toString(), secLoginRequestDto.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(secLoginRequestDto.getUserName(), secLoginRequestDto.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

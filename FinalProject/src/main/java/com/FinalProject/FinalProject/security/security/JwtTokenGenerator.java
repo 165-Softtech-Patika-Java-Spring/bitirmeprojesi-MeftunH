@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/**
- * @author Bahadır Memiş
- * @since 1.0.0
- */
+
 @Component
 public class JwtTokenGenerator {
 

@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author Bahadır Memiş
- * @since 1.0.0
- */
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

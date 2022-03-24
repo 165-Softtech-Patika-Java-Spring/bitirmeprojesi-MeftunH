@@ -22,10 +22,7 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
-/**
- * @author Bahadır Memiş
- * @since 1.0.0
- */
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
