@@ -29,7 +29,7 @@ public class GenCustomizedResponseEntityExceptionHandler extends ResponseEntityE
 
         GenExceptionResponse genExceptionResponse = new GenExceptionResponse(errorDate, message, description);
 
-        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse,500);
+        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse);
         restResponse.setMessages(message);
 
         return new ResponseEntity<>(restResponse, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -44,7 +44,7 @@ public class GenCustomizedResponseEntityExceptionHandler extends ResponseEntityE
 
         GenExceptionResponse genExceptionResponse = new GenExceptionResponse(errorDate, message, description);
 
-        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse,404);
+        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse);
         restResponse.setMessages(message);
 
         return new ResponseEntity<>(restResponse, HttpStatus.NOT_FOUND);
@@ -59,7 +59,7 @@ public class GenCustomizedResponseEntityExceptionHandler extends ResponseEntityE
 
         GenExceptionResponse genExceptionResponse = new GenExceptionResponse(errorDate, message, description);
 
-        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse,500);
+        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse);
         restResponse.setMessages(message);
 
         return new ResponseEntity<>(restResponse, HttpStatus.NOT_FOUND);
@@ -73,7 +73,7 @@ public class GenCustomizedResponseEntityExceptionHandler extends ResponseEntityE
         String description = ex.getBindingResult().toString();
 
         GenExceptionResponse genExceptionResponse = new GenExceptionResponse(errorDate, message, description);
-        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse,403);
+        RestResponse<GenExceptionResponse> restResponse = RestResponse.error(genExceptionResponse);
         restResponse.setMessages(message);
 
         return new ResponseEntity<>(restResponse, HttpStatus.BAD_REQUEST);

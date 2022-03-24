@@ -42,6 +42,13 @@ public class UserService {
         return userDto;
     }
 
+    public boolean existsUserByUserName(String username) {
+        User user = userEntityService.getUserByUsername(username);
+        if (user == null) {
+            return false;
+        }
+        return true;
+    }
     public UserAuthDto getAuthenticatedUser(String username) {
         User user = userEntityService.getUserByUsername(username);
         UserAuthDto userDto = UserMapper.INSTANCE.convertToUserAuthDto(user);

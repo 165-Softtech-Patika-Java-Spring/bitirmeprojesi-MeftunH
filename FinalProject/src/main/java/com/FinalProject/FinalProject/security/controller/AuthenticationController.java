@@ -7,11 +7,12 @@ import com.FinalProject.FinalProject.user.dto.UserDto;
 import com.FinalProject.FinalProject.user.dto.UserSaveRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -23,8 +24,10 @@ public class AuthenticationController {
 
     @Operation(tags = "Authentication Controller")
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody SecLoginRequestDto secLoginRequestDto){
-
+    public ResponseEntity login(@RequestParam @Valid String userName, @RequestParam @Valid String password){
+        SecLoginRequestDto secLoginRequestDto = new SecLoginRequestDto();
+        secLoginRequestDto.setUserName(userName);
+        secLoginRequestDto.setPassword(password);
         String token = authenticationService.login(secLoginRequestDto);
 
         return ResponseEntity.ok(RestResponse.success(token));
@@ -32,10 +35,10 @@ public class AuthenticationController {
 
     @Operation(tags = "Authentication Controller")
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody UserSaveRequestDto userSaveRequestDto){
+    public ResponseEntity register(@RequestBody @Valid UserSaveRequestDto userSaveRequestDto){
 
-        UserDto cusCustomerDto =authenticationService.register(userSaveRequestDto);
+        UserDto userDto =authenticationService.register(userSaveRequestDto);
 
-        return ResponseEntity.ok(RestResponse.success(cusCustomerDto));
+        return ResponseEntity.ok(RestResponse.success(userDto));
     }
 }

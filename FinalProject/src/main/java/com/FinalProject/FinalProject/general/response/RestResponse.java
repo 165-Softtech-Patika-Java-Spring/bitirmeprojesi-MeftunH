@@ -16,24 +16,22 @@ public class RestResponse<T> implements Serializable {
     private Date responseDate;
     private boolean isSuccess;
     private String messages;
-    private int responseCode;
 
-    public RestResponse(T data, boolean isSuccess,int responseCode) {
+    public RestResponse(T data, boolean isSuccess) {
         this.data = data;
         this.isSuccess = isSuccess;
         responseDate = new Date();
-        this.responseCode = responseCode;
     }
     public static <T> RestResponse<T> success(T t){
-        return new RestResponse<>(t, true,200);
+        return new RestResponse<>(t, true);
     }
 
-    public static <T> RestResponse<T> error(T t,int responseCode){
-        return new RestResponse<>(t, false,responseCode);
+    public static <T> RestResponse<T> error(T t){
+        return new RestResponse<>(t, false);
     }
 
     public static <T> RestResponse<T> empty(int responseCode){
-        return new RestResponse<>(null, true,responseCode);
+        return new RestResponse<>(null, true);
     }
 
     public void setMessages(String messages) {

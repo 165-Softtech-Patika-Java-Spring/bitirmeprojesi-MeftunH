@@ -2,9 +2,11 @@ package com.FinalProject.FinalProject.user.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.validation.constraints.NotNull;
 
 @Data
-@Builder
 public class UserSaveRequestDto {
     private String name;
     private String surname;

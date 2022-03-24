@@ -29,9 +29,14 @@ public class AuthenticationService {
 
     public UserDto register(UserSaveRequestDto userSaveRequestDto) {
 
-        UserDto userDto = userService.save(userSaveRequestDto);
+        String userName = userSaveRequestDto.getUserName();
+        if (!userService.existsUserByUserName(userName)) {
+            UserDto userDto = userService.save(userSaveRequestDto);
 
-        return userDto;
+            return userDto;
+        } else {
+            throw new IllegalArgumentException("Username already exists");
+        }
     }
 
     public String login(SecLoginRequestDto secLoginRequestDto) {

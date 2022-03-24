@@ -1,8 +1,10 @@
 package com.FinalProject.FinalProject.user.entity;
 
+import com.FinalProject.FinalProject.general.annotation.UniqueKey;
 import com.FinalProject.FinalProject.general.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 
@@ -10,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "USERS")
 @Getter
 @Setter
+@UniqueKey(columnNames={"USER_NAME"})
 public class User extends BaseEntity {
     @Id
     @SequenceGenerator(name = "Users" , sequenceName = "USR_USERS_ID_SEQ")
