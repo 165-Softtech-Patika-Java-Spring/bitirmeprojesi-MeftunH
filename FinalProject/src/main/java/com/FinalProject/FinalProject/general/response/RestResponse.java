@@ -30,7 +30,7 @@ public class RestResponse<T> implements Serializable {
         return new RestResponse<>(t, false);
     }
 
-    public static <T> RestResponse<T> empty(int responseCode){
+    public static <T> RestResponse<T> empty(){
         return new RestResponse<>(null, true);
     }
 

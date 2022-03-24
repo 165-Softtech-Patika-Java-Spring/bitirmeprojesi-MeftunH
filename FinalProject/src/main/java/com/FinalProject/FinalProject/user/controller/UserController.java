@@ -10,10 +10,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -32,31 +29,8 @@ public class UserController {
                                     mediaType = "application/json",
                                     schema = @Schema(
                                             implementation = UserSaveRequestDto.class
-                                    ),
-                                    examples = {
-                                            @ExampleObject(
-                                                    name = "new foreign user",
-                                                    summary = "New Foreign user Example",
-                                                    description = "Complete request with all available fields for foreign user",
-                                                    value = "{\n" +
-                                                            "  \"name\": \"john\",\n" +
-                                                            "  \"surname\": \"smith\",\n" +
-                                                            "  \"userName\": \"JohnUserName\"\n" +
-                                                            "  \"password\": \"J.s_1234\"\n" +
-                                                            "}"
-                                            ),
-                                            @ExampleObject(
-                                                    name = "new user",
-                                                    summary = "New user Example",
-                                                    description = "Complete request with all available fields",
-                                                    value = "{\n" +
-                                                            "  \"name\": \"john\",\n" +
-                                                            "  \"surname\": \"doe\",\n" +
-                                                            "  \"userName\": \"JohnUserName\"\n" +
-                                                            "  \"password\": \"John123\"\n" +
-                                                            "}"
-                                            )
-                                    }
+                                    )
+
                             ),
                     }
             )
@@ -67,5 +41,13 @@ public class UserController {
         UserDto userDto = userService.save(userSaveRequestDto);
 
         return ResponseEntity.ok(RestResponse.success(userDto));
+    }
+    @Operation(tags = "User Controller")
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+
+        userService.delete(id);
+
+        return ResponseEntity.ok(RestResponse.empty());
     }
 }

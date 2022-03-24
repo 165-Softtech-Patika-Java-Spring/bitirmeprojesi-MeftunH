@@ -49,9 +49,17 @@ public class UserService {
         }
         return true;
     }
+
     public UserAuthDto getAuthenticatedUser(String username) {
         User user = userEntityService.getUserByUsername(username);
         UserAuthDto userDto = UserMapper.INSTANCE.convertToUserAuthDto(user);
         return userDto;
+    }
+
+    public void delete(Long id) {
+        User user = userEntityService.getByIdWithControl(id);
+
+        userEntityService.delete(user);
+
     }
 }
