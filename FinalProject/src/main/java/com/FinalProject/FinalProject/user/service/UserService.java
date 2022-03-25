@@ -39,14 +39,6 @@ public class UserService {
         return userDto;
     }
 
-    private void controlIsUserExist(Long id) {
-
-        boolean isExist = userEntityService.existsById(id);
-        if (!isExist) {
-            throw new ItemNotFoundException(UserNotFoundErrorMessage.UserNotFoundErrorMessage);
-        }
-    }
-
     public boolean existsUserByUserName(String username) {
         User user = userEntityService.getUserByUsername(username);
         if (user == null) {
@@ -61,14 +53,24 @@ public class UserService {
         userEntityService.delete(user);
     }
 
-    public UserDto update(Long id,UserUpdateRequestDto userUpdateRequestDto) {
-        controlIsUserExist(id);
+    public UserDto update(UserUpdateRequestDto userUpdateRequestDto) {
+        controlIsUserExist(userUpdateRequestDto);
 
-        User user = UserMapper.INSTANCE.convertToUser(userUpdateRequestDto);
-        user = userEntityService.save(user);
+        User user;
+        user = UserMapper.INSTANCE.convertToUser(userUpdateRequestDto);
+        userEntityService.save(user);
 
         UserDto userDto = UserMapper.INSTANCE.convertToUserDto(user);
 
         return userDto;
+    }
+    private void controlIsUserExist(UserUpdateRequestDto userUpdateRequestDto) {
+
+        Long id = userUpdateRequestDto.getId();
+
+        boolean isExist = userEntityService.existsById(id);
+        if (!isExist){
+            throw new ItemNotFoundException(UserNotFoundErrorMessage.UserNotFoundErrorMessage);
+        }
     }
 }

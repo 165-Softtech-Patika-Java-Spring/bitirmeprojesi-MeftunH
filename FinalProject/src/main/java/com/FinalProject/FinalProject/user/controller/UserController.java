@@ -54,10 +54,10 @@ public class UserController {
         return ResponseEntity.ok(RestResponse.empty());
     }
     @Operation(tags = "User Controller")
-    @PutMapping("/update/{id}")
-    public ResponseEntity update(@PathVariable(value = "id") Long id, @RequestBody UserUpdateRequestDto userUpdateRequestDto){
+    @PutMapping
+    public ResponseEntity update(@RequestBody UserUpdateRequestDto userUpdateRequestDto){
 
-        UserDto userDto = userService.update(id,userUpdateRequestDto);
+        UserDto userDto = userService.update(userUpdateRequestDto);
 
         return ResponseEntity.ok(RestResponse.success(userDto));
     }
